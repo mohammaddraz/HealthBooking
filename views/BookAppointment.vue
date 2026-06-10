@@ -36,6 +36,8 @@
 </template>
 
 <script>
+const API_BASE = "https://yi2hd46tg1.execute-api.us-east-1.amazonaws.com";
+
 export default {
   name: "BookAppointment",
   data() {
@@ -47,7 +49,7 @@ export default {
     };
   },
   mounted() {
-    fetch("https://e2m2b7y8c9.execute-api.us-east-1.amazonaws.com/prod/slots")
+    fetch(`${API_BASE}/slots`)
       .then(res => res.json())
       .then(data => {
         const parsed = JSON.parse(data.body);
@@ -62,7 +64,7 @@ export default {
         slot: this.selectedSlot
       };
 
-      fetch("https://e2m2b7y8c9.execute-api.us-east-1.amazonaws.com/prod/appointments", {
+      fetch(`${API_BASE}/appointments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body: JSON.stringify(payload) })
