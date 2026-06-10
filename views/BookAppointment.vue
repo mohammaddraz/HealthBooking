@@ -56,29 +56,35 @@ export default {
       });
   },
   methods: {
-    submitAppointment() {
+    async submitAppointment() {
       const payload = {
         patientName: this.name,
         symptoms: this.symptoms,
         slot: this.selectedSlot
       };
 
-      fetch(`${API_BASE}/appointments`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body: JSON.stringify(payload) })
-      })
-        .then(res => res.json())
-        .then(() => {
-          alert("Appointment booked!");
-          this.name = "";
-          this.symptoms = "";
-          this.selectedSlot = "";
-        })
-        .catch(err => {
-          console.error("Error booking appointment:", err);
-          alert("Failed to book appointment.");
+      try {
+        const response = await fetch(`${API_BASE}/appointments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
         });
+
+        const data = await response.json();
+        console.log("Response:", data);
+
+        if (!response.ok) {
+          throw new Error(data.message || data.error || "Failed to book appointment");
+        }
+
+        alert("Appointment booked!");
+        this.name = "";
+        this.symptoms = "";
+        this.selectedSlot = "";
+      } catch (err) {
+        console.error("Error booking appointment:", err);
+        alert("Failed to book appointment.");
+      }
     }
   }
 };
