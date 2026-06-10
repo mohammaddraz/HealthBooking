@@ -64,8 +64,7 @@ export default {
       fetch(`${API_BASE}/appointments`)
         .then(res => res.json())
         .then(data => {
-          const parsed = JSON.parse(data.body);
-          this.appointments = parsed;
+          this.appointments = data;
         });
     },
     updateStatus(appointment, newStatus) {
