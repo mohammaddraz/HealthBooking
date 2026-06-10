@@ -10,7 +10,7 @@
 
     <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
       <div class="card shadow p-5" style="width: 100%; max-width: 700px;">
-        <h2 class="text-center mb-4 text-primary">Book an Appointment</h2>
+        <h2 class="text-center mb-4 text-primary">Schedule Your Doctor Appointment</h2>
         <form class="row g-3" @submit.prevent="submitAppointment">
           <div class="col-12">
             <input v-model="name" type="text" class="form-control" placeholder="Your Name" required />
